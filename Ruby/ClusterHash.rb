@@ -1,6 +1,6 @@
+require './Cluster.rb'
 require './ClusterSignature.rb'
 require './LogEntry.rb'
-
 
 class ClusterHash
   def initialize
@@ -17,12 +17,7 @@ class ClusterHash
     @hash.each_pair do |signature, log_entries|
       next if log_entries.length == 1
 
-      changing_word_index = signature.varword_index
-      changing_word_list = log_entries.map do |log_entry|
-        log_entry.words[changing_word_index]
-      end.uniq
-
-      yield changing_word_list, log_entries
+      yield Cluster.new signature, log_entries
     end
   end
 end

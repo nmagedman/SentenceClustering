@@ -9,8 +9,9 @@ File.open(ARGV[0]).each do |line|
 end
 
 is_first_cluster = true
-cluster_hash.each_cluster do |changing_word_list, log_entries|
-  is_first_cluster = is_first_cluster ? false : puts
-  puts log_entries
-  puts "The changing word was: #{changing_word_list.join(', ')}"
+
+cluster_hash.each_cluster do |cluster|
+  is_first_cluster = (puts unless is_first_cluster)
+  puts cluster.log_entries
+  puts "The changing word was: #{cluster.changing_words.join(', ')}"
 end
